@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Second-hand Marketplace</title>
+    <script>
+        // Auto-redirect based on authentication status
+        try {
+            const user = JSON.parse(localStorage.getItem('shcm_user') || 'null');
+            if (user && user.id && user.email) {
+                // User is logged in - redirect to home
+                window.location.href = 'home.html';
+            } else {
+                // User not logged in - redirect to login
+                window.location.href = 'login.html';
+            }
+        } catch (e) {
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+<body>
+    <p>Loading...</p>
+</body>
+</html>

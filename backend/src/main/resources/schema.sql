@@ -1,0 +1,2 @@
+-- Schema is managed by Hibernate (ddl-auto=update) for fast development.
+-- Add explicit DDL here later if you want strict migration scripts.

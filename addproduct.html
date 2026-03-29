@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Add Product • Second-Hand Component Marketplace</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="home.html">
+        <span class="brand-badge" aria-hidden="true"></span>
+        <span>Second-Hand Component Marketplace</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a class="nav-link" href="home.html">Home</a>
+        <a class="nav-link" href="mylistings.html">My Listings</a>
+        <a class="nav-link" href="settings.html">Settings</a>
+        <a class="nav-link" href="login.html">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 class="page-title">Add Product</h1>
+    <p class="page-subtitle">Fill out the form to create a listing (frontend only).</p>
+
+    <section class="card">
+      <div class="card-body">
+        <form id="addProductForm" class="form" novalidate>
+          <div class="field">
+            <label class="label" for="title">Title</label>
+            <input class="input" id="title" name="title" type="text" placeholder="e.g., Arduino Uno R3" required />
+          </div>
+
+          <div class="field">
+            <label class="label" for="description">Description</label>
+            <textarea class="input" id="description" name="description" rows="4" placeholder="Describe condition, accessories, testing info..." required></textarea>
+          </div>
+
+          <div class="form-row two">
+            <div class="field">
+              <label class="label" for="price">Price</label>
+              <input class="input" id="price" name="price" type="number" min="0" step="1" placeholder="e.g., 900" required />
+            </div>
+            <div class="field">
+              <label class="label" for="condition">Condition</label>
+              <select class="input" id="condition" name="condition" required>
+                <option value="" selected disabled>Select condition</option>
+                <option>New</option>
+                <option>Like New</option>
+                <option>Used</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label" for="image">Product Image</label>
+            <input class="input" id="image" name="image" type="file" accept="image/*" />
+            <div class="help">Create mode: image is required. Edit mode: choose only if you want to replace image.</div>
+          </div>
+
+          <div class="error" role="alert"></div>
+
+          <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+      </div>
+    </section>
+
+    <div class="footer">Back to <a class="link" href="mylistings.html">My Listings</a></div>
+  </main>
+</body>
+</html>

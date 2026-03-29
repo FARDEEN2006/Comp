@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Product Details • Second-Hand Component Marketplace</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="home.html">
+        <span class="brand-badge" aria-hidden="true"></span>
+        <span>Second-Hand Component Marketplace</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a class="nav-link" href="home.html">Home</a>
+        <a class="nav-link" href="mylistings.html">My Listings</a>
+        <a class="nav-link" href="settings.html">Settings</a>
+        <a class="nav-link" href="login.html">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 class="page-title">Product Details</h1>
+    <p class="page-subtitle">Preview a listing before contacting the seller.</p>
+
+    <section class="split" aria-label="Product detail">
+      <div>
+        <img id="productImg" class="details-img" alt="Product image" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'><defs><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='%232563eb'/><stop offset='1' stop-color='%2360a5fa'/></linearGradient></defs><rect width='100%25' height='100%25' fill='url(%23g)'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='52' fill='white'>Component%20Image</text></svg>" />
+        <div class="help" style="margin-top:10px;">Image is a placeholder (frontend only).</div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h2 id="productTitle" style="margin:0 0 6px;">Arduino Uno R3</h2>
+          <div id="productCondition" class="badge" style="margin-bottom:12px;">Condition: Used</div>
+
+          <div id="productPrice" class="price" style="font-size:22px;">₹ 900</div>
+          <div class="help" style="margin-top:6px;">Seller phone: <strong id="sellerPhone">Loading...</strong></div>
+          <p id="productDesc" class="page-subtitle" style="margin-top:10px;">
+            Clean board, tested in lab. Includes USB cable. Great for microcontroller projects and quick prototyping.
+          </p>
+
+          <div class="btn-row" style="margin-top:12px;">
+            <a id="contactSellerBtn" class="btn btn-outline" href="#" target="_blank" rel="noopener">Seller Contact</a>
+            <a id="buyNowBtn" class="btn btn-whatsapp" href="#" target="_blank" rel="noopener">Buy Now</a>
+          </div>
+
+          <div class="help" style="margin-top:12px;">
+            Buttons will open WhatsApp chat with the seller.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">Back to <a class="link" href="home.html">Home</a></div>
+  </main>
+</body>
+</html>
+

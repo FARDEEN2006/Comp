@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Settings • Second-Hand Component Marketplace</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="home.html">
+        <span class="brand-badge" aria-hidden="true"></span>
+        <span>Second-Hand Component Marketplace</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a class="nav-link" href="home.html">Home</a>
+        <a class="nav-link" href="mylistings.html">My Listings</a>
+        <a class="nav-link active" href="settings.html">Settings</a>
+        <a class="nav-link" href="login.html">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 class="page-title">Settings</h1>
+    <p class="page-subtitle">Update your profile and password (frontend only).</p>
+
+    <section class="grid" style="grid-template-columns:1fr;">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="section-title">Update Profile</h2>
+
+          <form id="profileForm" class="form" novalidate>
+            <div class="form-row two">
+              <div class="field">
+                <label class="label" for="profileName">Name</label>
+                <input class="input" id="profileName" name="name" type="text" value="Student Name" required />
+              </div>
+              <div class="field">
+                <label class="label" for="profilePhone">Phone</label>
+                <input class="input" id="profilePhone" name="phone" type="tel" value="+919876543210" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="profileEmail">Email</label>
+              <input class="input" id="profileEmail" name="email" type="email" value="student@example.com" required />
+            </div>
+
+            <div class="error" role="alert"></div>
+
+            <button class="btn btn-primary" type="submit">Save Profile</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h2 class="section-title">Change Password</h2>
+          <p class="help" style="margin-top:-6px;">Leave blank if you don’t want to change it.</p>
+
+          <form id="passwordForm" class="form" novalidate>
+            <div class="field">
+              <label class="label" for="currentPassword">Current Password</label>
+              <div class="input-group">
+                <input class="input" id="currentPassword" name="currentPassword" type="password" placeholder="••••••••" />
+                <button class="btn toggle-password" type="button" data-target="currentPassword">Show</button>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="newPassword">New Password</label>
+              <div class="input-group">
+                <input class="input" id="newPassword" name="newPassword" type="password" placeholder="Create a new password" />
+                <button class="btn toggle-password" type="button" data-target="newPassword">Show</button>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label" for="confirmPassword">Confirm New Password</label>
+              <div class="input-group">
+                <input class="input" id="confirmPassword" name="confirmPassword" type="password" placeholder="Repeat new password" />
+                <button class="btn toggle-password" type="button" data-target="confirmPassword">Show</button>
+              </div>
+            </div>
+
+            <div class="error" role="alert"></div>
+
+            <button class="btn btn-primary" type="submit">Update Password</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">Tip: Use the navbar to navigate pages.</div>
+  </main>
+</body>
+</html>

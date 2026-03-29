@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home • Second-Hand Component Marketplace</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="home.html">
+        <span class="brand-badge" aria-hidden="true"></span>
+        <span>Second-Hand Component Marketplace</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a class="nav-link active" href="home.html">Home</a>
+        <a class="nav-link" href="mylistings.html">My Listings</a>
+        <a class="nav-link" href="settings.html">Settings</a>
+        <a class="nav-link" href="login.html">Logout</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 class="page-title">Marketplace</h1>
+    <p class="page-subtitle">Browse components listed by students. Search by title or condition.</p>
+
+    <div class="searchbar">
+      <input id="searchInput" class="input" type="search" placeholder="Search (e.g., Arduino, Used, Like New)" aria-label="Search products" />
+      <a class="btn btn-outline" href="addproduct.html">Add Product</a>
+    </div>
+
+    <div id="emptyState" class="card" style="display:none;">
+      <div class="card-body">
+        <strong>No results.</strong>
+        <div class="help">Try a different keyword.</div>
+      </div>
+    </div>
+
+    <section id="productsGrid" class="grid products" aria-label="Product listings"></section>
+
+    <div class="footer">Tip: Click any card to view details.</div>
+  </main>
+</body>
+</html>
+

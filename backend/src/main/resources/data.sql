@@ -1,0 +1,2 @@
+-- Optional starter data for quick testing
+-- Insert only if table is empty (safe mode not guaranteed on every MySQL config)

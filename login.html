@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login • Second-Hand Component Marketplace</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="login.html">
+        <span class="brand-badge" aria-hidden="true"></span>
+        <span>Second-Hand Component Marketplace</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a class="nav-link active" href="login.html">Login</a>
+        <a class="nav-link" href="register.html">Create Account</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="auth-wrap">
+    <section class="card auth-card" aria-label="Login form">
+      <div class="card-body">
+        <h1 class="page-title">Welcome back</h1>
+        <p class="page-subtitle">Log in to browse and sell second-hand components.</p>
+
+        <form id="loginForm" class="form" novalidate>
+          <div class="field">
+            <label class="label" for="email">Email</label>
+            <input class="input" id="email" name="email" type="email" placeholder="you@example.com" required />
+          </div>
+
+          <div class="field">
+            <label class="label" for="loginPassword">Password</label>
+            <div class="input-group">
+              <input class="input" id="loginPassword" name="password" type="password" placeholder="••••••••" required />
+              <button class="btn toggle-password" type="button" data-target="loginPassword">Show</button>
+            </div>
+            <div class="help">Tip: This is a UI-only demo.</div>
+          </div>
+
+          <div class="error" role="alert"></div>
+
+          <button class="btn btn-primary" type="submit">Login</button>
+
+          <p class="help">New here? <a class="link" href="register.html">Create Account</a></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container footer">© Second-Hand Component Marketplace (Frontend demo)</footer>
+</body>
+</html>
