@@ -260,13 +260,13 @@
   }
 
   function placeholderImage() {
-    return "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='500'><defs><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='%232563eb'/><stop offset='1' stop-color='%2360a5fa'/></linearGradient></defs><rect width='100%25' height='100%25' fill='url(%23g)'/><text x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='38' fill='white'>Component%20Image</text></svg>";
+    return "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%25232563eb'/%3E%3Cstop offset='1' stop-color='%252360a5fa'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='url(%2523g)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='38' fill='white'%3EComponent Image%3C/text%3E%3C/svg%3E";
   }
 
   function getProductImageUrl(imageUrl) {
     var src = String(imageUrl || "");
-    if (src.indexOf("http") === 0 || src.indexOf("data:image/") === 0) {
-      return src;
+    if (src.length > 10) {
+      return src; // Trust any actual image URL or data URI provided instead of strictly filtering
     }
     return placeholderImage();
   }
@@ -333,15 +333,42 @@
     var conditionEl = qs("#productCondition");
     var descEl = qs("#productDesc");
     var imgEl = qs("#productImg");
+    var contactBtn = qs("#contactSellerBtn");
+    var buyBtn = qs("#buyNowBtn");
+    var phoneEl = qs("#sellerPhone");
     if (!titleEl || !priceEl || !conditionEl || !descEl) return;
 
     var params = new URLSearchParams(window.location.search);
     var id = params.get("id");
-    if (!id) return;
+    if (!id) {
+      // If user opens /product without an id, route to the first available listing.
+      api("/api/products", { method: "GET" })
+        .then(function (list) {
+          if (Array.isArray(list) && list.length && list[0].id) {
+            var firstId = encodeURIComponent(list[0].id);
+            window.location.href = "product?id=" + firstId;
+            return;
+          }
 
-    var contactBtn = qs("#contactSellerBtn");
-    var buyBtn = qs("#buyNowBtn");
-    var phoneEl = qs("#sellerPhone");
+          if (descEl) descEl.textContent = "No products available. Please add a product first.";
+          if (phoneEl) phoneEl.textContent = "Unavailable";
+          if (titleEl) titleEl.textContent = "Product Not Found";
+          if (conditionEl) conditionEl.textContent = "Condition: N/A";
+          if (priceEl) priceEl.textContent = "N/A";
+          if (contactBtn) contactBtn.style.display = "none";
+          if (buyBtn) buyBtn.style.display = "none";
+        })
+        .catch(function () {
+          if (descEl) descEl.textContent = "Unable to load products. Start backend and refresh.";
+          if (phoneEl) phoneEl.textContent = "Unavailable";
+          if (titleEl) titleEl.textContent = "Product Not Found";
+          if (conditionEl) conditionEl.textContent = "Condition: N/A";
+          if (priceEl) priceEl.textContent = "N/A";
+          if (contactBtn) contactBtn.style.display = "none";
+          if (buyBtn) buyBtn.style.display = "none";
+        });
+      return;
+    }
 
     api("/api/products/" + encodeURIComponent(id), { method: "GET" })
       .then(function (p) {
@@ -362,24 +389,66 @@
         }
 
         if (contactBtn) {
-          contactBtn.href = waPhone ? ("https://wa.me/" + waPhone + "?text=" + encodeURIComponent(message)) : "#";
-          contactBtn.onclick = waPhone ? null : function (e) {
-            e.preventDefault();
-            alert("Seller phone is invalid or missing. Ask seller to update phone in Settings.");
-          };
+          if (waPhone) {
+            var contactUrl = "https://wa.me/" + waPhone + "?text=" + encodeURIComponent(message);
+            contactBtn.href = contactUrl;
+            contactBtn.onclick = function (e) {
+              e.preventDefault();
+              window.location.href = contactUrl;
+            };
+          } else {
+            contactBtn.href = "#";
+            contactBtn.onclick = function (e) {
+              e.preventDefault();
+              alert("Seller phone is invalid or missing (" + (p.sellerPhone || "empty") + "). Ask seller to update phone in Settings.");
+            };
+          }
         }
         if (buyBtn) {
-          buyBtn.href = waPhone ? ("https://wa.me/" + waPhone + "?text=" + encodeURIComponent("I want to buy: " + (p.title || "") + " for " + formatINR(p.price))) : "#";
-          buyBtn.onclick = waPhone ? null : function (e) {
-            e.preventDefault();
-            alert("Seller phone is invalid or missing. Ask seller to update phone in Settings.");
-          };
+          if (waPhone) {
+            var buyUrl = "https://wa.me/" + waPhone + "?text=" + encodeURIComponent("I want to buy: " + (p.title || "") + " for " + formatINR(p.price));
+            buyBtn.href = buyUrl;
+            buyBtn.onclick = function (e) {
+              e.preventDefault();
+              window.location.href = buyUrl;
+            };
+          } else {
+            buyBtn.href = "#";
+            buyBtn.onclick = function (e) {
+              e.preventDefault();
+              alert("Seller phone is invalid or missing (" + (p.sellerPhone || "empty") + "). Ask seller to update phone in Settings.");
+            };
+          }
         }
 
         document.title = (p.title || "Product") + " • Second-Hand Component Marketplace";
       })
       .catch(function () {
-        // Keep default content if API fails.
+        // If backend is down, make it obvious to the user.
+        if (descEl) {
+          descEl.textContent = "Unable to load product details. Please start the backend (mvn spring-boot:run) and retry.";
+        }
+        if (phoneEl) {
+          phoneEl.textContent = "Unavailable";
+        }
+        if (contactBtn) {
+          contactBtn.href = "javascript:void(0);";
+          contactBtn.onclick = function (e) {
+            e.preventDefault();
+            alert("Product could not be loaded. Start the backend and refresh this page.");
+          };
+        }
+        if (buyBtn) {
+          buyBtn.href = "javascript:void(0);";
+          buyBtn.onclick = function (e) {
+            e.preventDefault();
+            alert("Product could not be loaded. Start the backend and refresh this page.");
+          };
+        }
+        if (imgEl) {
+          imgEl.src = placeholderImage();
+          imgEl.alt = "Product unavailable";
+        }
       });
   }
 
