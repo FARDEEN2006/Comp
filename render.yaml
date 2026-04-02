@@ -17,7 +17,7 @@ services:
       - key: DB_PASSWORD
         sync: false
 
-  - type: static
+  - type: static_site
     name: secondhand-marketplace-frontend
     rootDir: .
     buildCommand: ""
