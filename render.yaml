@@ -16,3 +16,9 @@ services:
         sync: false
       - key: DB_PASSWORD
         sync: false
+
+  - type: web
+    name: secondhand-marketplace-frontend
+    env: static
+    buildCommand: ""
+    staticPublishPath: .
