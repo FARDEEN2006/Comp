@@ -1,7 +1,12 @@
 (function () {
   "use strict";
 
-  var API_BASE = localStorage.getItem("apiBase") || "http://localhost:8080";
+  var LOCAL_API_BASE = "http://localhost:8080";
+  var PROD_API_BASE = "https://secondhand-marketplace-backend.onrender.com";
+  var isLocalHost =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1";
+  var API_BASE = localStorage.getItem("apiBase") || (isLocalHost ? LOCAL_API_BASE : PROD_API_BASE);
   var USER_KEY = "shcm_user";
   var DEFAULT_COUNTRY_CODE = "91";
 
